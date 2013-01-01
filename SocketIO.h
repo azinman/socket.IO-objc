@@ -2,7 +2,7 @@
 //  SocketIO.h
 //  v0.3.0 ARC
 //
-//  based on 
+//  based on
 //  socketio-cocoa https://github.com/fpotter/socketio-cocoa
 //  by Fred Potter <fpotter@pieceable.com>
 //
@@ -15,7 +15,7 @@
 //
 //  Created by Philipp Kyeck http://beta-interactive.de
 //
-//  Updated by 
+//  Updated by
 //    samlown   https://github.com/samlown
 //    kayleg    https://github.com/kayleg
 //    taiyangc  https://github.com/taiyangc
@@ -52,6 +52,7 @@ typedef enum {
 - (void) socketIO:(SocketIO *)socket didReceiveEvent:(SocketIOPacket *)packet;
 - (void) socketIO:(SocketIO *)socket didSendMessage:(SocketIOPacket *)packet;
 - (void) socketIO:(SocketIO *)socket onError:(NSError *)error;
+- (NSArray *) socketIOGetSSLCertificates:(SocketIO *)socket;
 
 // TODO: deprecated -> to be removed
 - (void) socketIO:(SocketIO *)socket failedToConnectWithError:(NSError *)error __attribute__((deprecated));
@@ -66,27 +67,27 @@ typedef enum {
     NSString *_sid;
     NSString *_endpoint;
     NSDictionary *_params;
-    
+
     __unsafe_unretained id<SocketIODelegate> _delegate;
-    
+
     NSObject <SocketIOTransport> *_transport;
-    
+
     BOOL _isConnected;
     BOOL _isConnecting;
     BOOL _useSecure;
-    
+
     NSURLConnection *_handshake;
-    
+
     // heartbeat
     NSTimeInterval _heartbeatTimeout;
     NSTimer *_timeout;
-    
+
     NSMutableArray *_queue;
-    
+
     // acknowledge
     NSMutableDictionary *_acks;
     NSInteger _ackCount;
-    
+
     // http request
     NSMutableData *_httpRequestData;
 }
