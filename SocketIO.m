@@ -1,6 +1,6 @@
 //
 //  SocketIO.m
-//  v0.3.0 ARC
+//  v0.3.2 ARC
 //
 //  based on
 //  socketio-cocoa https://github.com/fpotter/socketio-cocoa
@@ -586,7 +586,7 @@ NSString* const SocketIOException = @"SocketIOException";
 {
     // check for server status code (http://gigliwood.com/weblog/Cocoa/Q__When_is_an_conne.html)
     if ([response respondsToSelector:@selector(statusCode)]) {
-        int statusCode = [((NSHTTPURLResponse *)response) statusCode];
+        NSInteger statusCode = [((NSHTTPURLResponse *)response) statusCode];
         DEBUGLOG(@"didReceiveResponse() %i", statusCode);
 
         if (statusCode >= 400) {
@@ -629,7 +629,10 @@ NSString* const SocketIOException = @"SocketIOException";
     }
     // TODO: deprecated - to be removed
     else if ([_delegate respondsToSelector:@selector(socketIOHandshakeFailed:)]) {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
         [_delegate socketIOHandshakeFailed:self];
+#pragma clang diagnostic pop
     }
 }
 
@@ -710,7 +713,10 @@ NSString* const SocketIOException = @"SocketIOException";
         }
         // TODO: deprecated - to be removed
         else if ([_delegate respondsToSelector:@selector(socketIO:failedToConnectWithError:)]) {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
             [_delegate socketIO:self failedToConnectWithError:error];
+#pragma clang diagnostic pop
         }
 
         // make sure to do call all cleanup code
